@@ -1,0 +1,28 @@
+﻿Working APIs I found:
+
+//
+get the forcast
+
+https://services.surfline.com/kbyg/spots/forecasts?spotId=5842041f4e65fad6a7708906&days=1
+
+origin: https://github.com/dssd1001/surfnow
+
+
+
+
+
+important data I found:
+
+hezelia dromi co ordinates 32.156381, 34.794596 (from google maps)
+
+
+
+resources:
+jason print https://jsonformatter.org/json-pretty-print
+
+
+https://developers.google.com/api-client-library/dotnet/apis/calendar/v3
+
+
+Notes:
+- I will need to check units for the numbers I pull..
