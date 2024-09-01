@@ -21,25 +21,28 @@ namespace SurfCalendar.DataRetriever.Controllers
         //[Produces("application/json")]
         public async Task<IActionResult> Test()
         {
-            string apiurl = "https://services.surfline.com/kbyg/spots/forecasts";
-            string spotId = "584204204e65fad6a7709ab7";//"5842041f4e65fad6a7708906";
-            int days = 2;
+            var reqParams = new ForcastRequestDto()
+            {
+                Days = 2
+            };
 
-            var result = await GetDataAsync(apiurl, spotId, days);
+            var result = await GetDataAsync(reqParams);
 
             return result;
         }
 
-        [HttpGet("forcast/Data")]
-        //[Produces("application/json")]
-        public async Task<IActionResult> GetDataAsync(string apiurl = "https://services.surfline.com/kbyg/spots/forecasts", string spotId = "584204204e65fad6a7709ab7", int days = 1)
+        [HttpPost("forcast/data")]
+        //[Produces("application/json")] //TODO return this?
+        [Consumes(System.Net.Mime.MediaTypeNames.Application.Json)] // "application/json"
+        [ProducesResponseType(typeof(ForcastResponseDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetDataAsync([FromBody] ForcastRequestDto requestParams)
         {
-            var result = await GetRawDataAsync(apiurl, spotId, days);
+            var result = await GetRawDataAsync("https://services.surfline.com/kbyg/spots/forecasts", requestParams.SpotId, requestParams.Days);
 
             SurflineDtos.Forcast.ForcastRoot rawForcast = SurflineDtos.Forcast.ForcastRoot.DeserializeObject<SurflineDtos.Forcast.ForcastRoot>(result);
 
             var converter = new ForcastConverter();
-            ForcastDto myForcast = converter.ConvertForcast(rawForcast);
+            ForcastResponseDto myForcast = converter.ConvertForcast(rawForcast);
             return Ok(myForcast.Serialize());
         }
 

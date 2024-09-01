@@ -7,11 +7,11 @@ namespace SurfCalendar.DataRetriever.SurflineDtos.Convertion
     public class ForcastConverter
     {
 
-        public ForcastDto ConvertForcast(SurflineDtos.Forcast.ForcastRoot data)
+        public ForcastResponseDto ConvertForcast(SurflineDtos.Forcast.ForcastRoot data)
         {
             VerifyMetricsUnits(data);
 
-            Contract.Forcast.ForcastDto result = new ForcastDto();
+            Contract.Forcast.ForcastResponseDto result = new ForcastResponseDto();
 
             var daysList = new LinkedList<DayDto>();
 
@@ -22,7 +22,7 @@ namespace SurfCalendar.DataRetriever.SurflineDtos.Convertion
 
             foreach (ForecastPoint point in data.data.forecasts)
             {
-                var pointDate = DateOnly.FromDateTime(UnixTimeStampToDateTime(point.timestamp));
+                var pointDate = UnixTimeStampToDateTime(point.timestamp).Date;
 
                 // add new day
                 if ((lastDay == null) || 

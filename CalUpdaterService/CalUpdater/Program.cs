@@ -1,7 +1,5 @@
 
-using SurfCalendar.Common.Swagger;
-
-namespace SurfCalendar.DataRetriever
+namespace SurfCalendar.CalUpdater
 {
     public class Program
     {
@@ -14,10 +12,7 @@ namespace SurfCalendar.DataRetriever
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(
-                c => // Add the custom operation filter
-                c.OperationFilter<ParametersOperationFilter>()
-            );
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
